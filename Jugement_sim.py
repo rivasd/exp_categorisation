@@ -200,131 +200,131 @@ def jugement_sim(type, categorie, numero1, numero2):
 
 
 
-
-win.flip()
-core.wait(2.0)
-
-write_instruction("Vous vous appretter a faire une tache de jugement de similarite. Vous verrez deux stimuli un a la suite de l'autre.")
-write_instruction("Vous devrez juger de leur similarite en utilisant une echelle de 0 a 9. 0 = Tres different 9 = Pareil")
-write_instruction("Apres avoir vu chacun des stimulis vous aurez 2 secondes pour faire votre choix en appuyant sur une touche de 0 a 9 sur le numpad")
-
-decompte("L'experimentation commencera dans :", 5)
-
-nbr_essaie = 0
-last_type = 0
-last_categorie = 0
-repetition = 0
-repetition_categorie = 0
-nbr_pareil = 0
-nbr_dif = 0
-pareil_1 = 0
-pareil_2 = 0
-this_trial_list = []
-attention_check = False
-
-while nbr_essaie < 11 :
-    meme_categorie = randint(1,2)
-    categorie = randint(1,2)
-    numero_1 = randint(1,600)
-    numero_2 = randint(1,600)
+if __name__ == "__main__":
+    win.flip()
+    core.wait(2.0)
     
-    already_use = True
-    while already_use == True :
-        used_item_value = 0
-        for item in this_trial_list :
-            if numero_1 == item :
-                used_item_value += 1
-        if used_item_value == 0 :
-            already_use = False
-        else : 
-            numero_1 = randint(1,600)
+    write_instruction("Vous vous appretter a faire une tache de jugement de similarite. Vous verrez deux stimuli un a la suite de l'autre.")
+    write_instruction("Vous devrez juger de leur similarite en utilisant une echelle de 0 a 9. 0 = Tres different 9 = Pareil")
+    write_instruction("Apres avoir vu chacun des stimulis vous aurez 2 secondes pour faire votre choix en appuyant sur une touche de 0 a 9 sur le numpad")
     
-    already_use = True
-    while already_use == True :
-        used_item_value = 0
-        for item in this_trial_list :
-            if numero_2 == item :
-                used_item_value += 1
-        if numero_2 == numero_1 :
-            used_item_value +=1
-        if used_item_value == 0 :
-            already_use = False
-        else : 
-            numero_2 = randint(1,600)
-                
-    if nbr_dif == 5 :
-        if attention_check == False :
-            attention_check = True
-            nbr_essaie += 1
-            pass # event (2x meme stimuli)
-        elif pareil_1 > pareil_2 :
-            nbr_essaie += 1
-            pareil_2 += 1
-            nbr_pareil += 1 
-            pass # event pareil categorie B
+    decompte("L'experimentation commencera dans :", 5)
+    
+    nbr_essaie = 0
+    last_type = 0
+    last_categorie = 0
+    repetition = 0
+    repetition_categorie = 0
+    nbr_pareil = 0
+    nbr_dif = 0
+    pareil_1 = 0
+    pareil_2 = 0
+    this_trial_list = []
+    attention_check = False
+    
+    while nbr_essaie < 11 :
+        meme_categorie = randint(1,2)
+        categorie = randint(1,2)
+        numero_1 = randint(1,600)
+        numero_2 = randint(1,600)
+        
+        already_use = True
+        while already_use == True :
+            used_item_value = 0
+            for item in this_trial_list :
+                if numero_1 == item :
+                    used_item_value += 1
+            if used_item_value == 0 :
+                already_use = False
+            else : 
+                numero_1 = randint(1,600)
+        
+        already_use = True
+        while already_use == True :
+            used_item_value = 0
+            for item in this_trial_list :
+                if numero_2 == item :
+                    used_item_value += 1
+            if numero_2 == numero_1 :
+                used_item_value +=1
+            if used_item_value == 0 :
+                already_use = False
+            else : 
+                numero_2 = randint(1,600)
+                    
+        if nbr_dif == 5 :
+            if attention_check == False :
+                attention_check = True
+                nbr_essaie += 1
+                pass # event (2x meme stimuli)
+            elif pareil_1 > pareil_2 :
+                nbr_essaie += 1
+                pareil_2 += 1
+                nbr_pareil += 1 
+                pass # event pareil categorie B
+            else :
+                nbr_essaie += 1
+                pareil_1 += 1
+                nbr_pareil += 1  
+                pass # event pareil categorie A
+        elif nbr_pareil == 5 :
+            if attention_check == False :
+                attention_check = True
+                nbr_essaie += 1
+                pass # event(2x meme stimuli)
+            else :
+                nbr_essaie += 1
+                nbr_dif += 1 
+                pass # event different
+        
         else :
-            nbr_essaie += 1
-            pareil_1 += 1
-            nbr_pareil += 1  
-            pass # event pareil categorie A
-    elif nbr_pareil == 5 :
-        if attention_check == False :
-            attention_check = True
-            nbr_essaie += 1
-            pass # event(2x meme stimuli)
-        else :
-            nbr_essaie += 1
-            nbr_dif += 1 
-            pass # event different
-    
-    else :
-        if meme_categorie == 1 :
-            if last_type == 1 :
-                if repetition == 2 :
-                    pass
-                else :
-                    if categorie == 1 :
-                        if last_categorie == 1 :
-                            if repetition_categorie == 2 :
-                                pass
-                            else :
-                                pass  # event pareil categorie A
-                        else :
-                            pass # event pareil categorie A
+            if meme_categorie == 1 :
+                if last_type == 1 :
+                    if repetition == 2 :
+                        pass
                     else :
-                        if last_categorie == 2 :
-                            if repetition_categorie == 2 :
-                                pass
+                        if categorie == 1 :
+                            if last_categorie == 1 :
+                                if repetition_categorie == 2 :
+                                    pass
+                                else :
+                                    pass  # event pareil categorie A
+                            else :
+                                pass # event pareil categorie A
+                        else :
+                            if last_categorie == 2 :
+                                if repetition_categorie == 2 :
+                                    pass
+                                else :
+                                    pass # event pareil categorie B
                             else :
                                 pass # event pareil categorie B
-                        else :
-                            pass # event pareil categorie B
+                    
+                    
+            elif meme_categorie == 2 :
+                if last_type == 2 :
+                    if repetition == 2 :
+                        pass
+                else : 
+                    pass # event pas pareil commencant par la categorie random
+    
                 
-                
-        elif meme_categorie == 2 :
-            if last_type == 2 :
-                if repetition == 2 :
-                    pass
-            else : 
-                pass # event pas pareil commencant par la categorie random
-
-            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
     
-    
-    
-    
-    
-    
-    
-
-
-
-
-core.wait(2.0)
-core.quit()
+    core.wait(2.0)
+    core.quit()
 
 
 
